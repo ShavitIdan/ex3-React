@@ -15,11 +15,11 @@ const Sidebar = ({ filters, setFilters, cars }) => {
 
   const minPrice = filteredCars.length
     ? Math.min(...filteredCars.map((car) => parseFloat(car.price)))
-    : 0; 
+    : 0;
 
   const maxPrice = filteredCars.length
     ? Math.max(...filteredCars.map((car) => parseFloat(car.price)))
-    : 100; 
+    : 100;
 
   useEffect(() => {
     if (filters.price > maxPrice) {
@@ -40,7 +40,10 @@ const Sidebar = ({ filters, setFilters, cars }) => {
     <aside
       className={`${
         filter ? "-translate-x-0" : "-translate-x-full"
-      } w-[340px] lg:translate-x-0 transition-all duration-300 max-lg:fixed max-lg:left-0 top-0 bottom-0 max-lg:shadow-2xl bg-white z-100 lg:sticky lg:top-[100px] min-h-[calc(100vh-140px)] px-8 py-8 space-y-6`}
+      } w-[340px] max-lg:w-full max-lg:h-full lg:translate-x-0 
+    transition-all duration-300 max-lg:fixed max-lg:left-0 
+    top-0 bottom-0 max-lg:shadow-2xl bg-white z-50 lg:z-auto 
+    lg:sticky lg:top-[100px] min-h-[calc(100vh-140px)] px-8 py-8 space-y-6`}
     >
       <button
         type="button"
@@ -64,34 +67,40 @@ const Sidebar = ({ filters, setFilters, cars }) => {
       </button>
 
       <div className="space-y-4">
-        <h2 className="uppercase font-semibold text-xs text-secondary">
-          Type
-        </h2>
+        <h2 className="uppercase font-semibold text-xs text-secondary">Type</h2>
         <div className="space-y-3">
-          {["Sport", "SUV", "MPV", "Sedan", "Coupe", "Hatchback"].map((type) => (
-            <label key={type} className="flex items-center space-x-2 cursor-pointer">
-              <input
-                type="checkbox"
-                className="size-5 rounded-lg"
-                checked={filters.type.includes(type)}
-                onChange={() => {
-                  setFilters((prev) => {
-                    let newTypes = prev.type.includes(type)
-                      ? prev.type.filter((t) => t !== type)
-                      : [...prev.type, type];
+          {["Sport", "SUV", "MPV", "Sedan", "Coupe", "Hatchback"].map(
+            (type) => (
+              <label
+                key={type}
+                className="flex items-center space-x-2 cursor-pointer"
+              >
+                <input
+                  type="checkbox"
+                  className="size-5 rounded-lg"
+                  checked={filters.type.includes(type)}
+                  onChange={() => {
+                    setFilters((prev) => {
+                      let newTypes = prev.type.includes(type)
+                        ? prev.type.filter((t) => t !== type)
+                        : [...prev.type, type];
 
-                    return {
-                      ...prev,
-                      type: newTypes.length > 0 ? newTypes : prev.type,
-                    };
-                  });
-                }}
-              />
-              <p className="text-base font-semibold text-dark-100">
-                {type} <span className="text-secondary">({typeCounts[type] || 0})</span>
-              </p>
-            </label>
-          ))}
+                      return {
+                        ...prev,
+                        type: newTypes.length > 0 ? newTypes : prev.type,
+                      };
+                    });
+                  }}
+                />
+                <p className="text-base font-semibold text-dark-100">
+                  {type}{" "}
+                  <span className="text-secondary">
+                    ({typeCounts[type] || 0})
+                  </span>
+                </p>
+              </label>
+            )
+          )}
         </div>
       </div>
 
@@ -121,7 +130,10 @@ const Sidebar = ({ filters, setFilters, cars }) => {
                 }}
               />
               <p className="text-base font-semibold text-dark-100">
-                {cap} People <span className="text-secondary">({capacityCounts[cap] || 0})</span>
+                {cap} People{" "}
+                <span className="text-secondary">
+                  ({capacityCounts[cap] || 0})
+                </span>
               </p>
             </label>
           ))}
@@ -139,12 +151,16 @@ const Sidebar = ({ filters, setFilters, cars }) => {
             <div
               className="absolute h-3 bg-primary rounded-full"
               style={{
-                width: `${((filters.price - minPrice) / (maxPrice - minPrice)) * 100}%`,
+                width: `${
+                  ((filters.price - minPrice) / (maxPrice - minPrice)) * 100
+                }%`,
               }}
             ></div>
             <div
               style={{
-                left: `${((filters.price - minPrice) / (maxPrice - minPrice)) * 100}%`,
+                left: `${
+                  ((filters.price - minPrice) / (maxPrice - minPrice)) * 100
+                }%`,
               }}
               className="absolute right-0 size-6 border-4 -ml-4 border-white bg-primary rounded-full"
             ></div>
