@@ -4,6 +4,7 @@ import CarProvider from "../context/CarProvider";
 import WishlistProvider from "../context/WishlistProvider";
 import CarLayout from "../layouts/CarLayout";
 import Home from "../pages/Home";
+import Wishlist from "../pages/Wishlist";
 
 const AppRoutes = () => {
   return (
@@ -19,6 +20,8 @@ const AppRoutes = () => {
         }
       >
         <Route path="/" element={<Home />} />
+        <Route path="/wishlist" element={<Wishlist />} />
+
       </Route>
     </Routes>
   );

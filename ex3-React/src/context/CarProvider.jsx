@@ -1,4 +1,15 @@
 import React, { createContext, useState } from "react";
+import image1 from "../assets/image-1.png";
+import image2 from "../assets/image-2.png";
+import image3 from "../assets/image-3.png";
+import image4 from "../assets/image-4.png";
+import image5 from "../assets/image-5.png";
+import image6 from "../assets/image-6.png";
+import image7 from "../assets/image-7.png";
+import image8 from "../assets/image-8.png";
+import image9 from "../assets/image-9.png";
+
+
 
 const initialCars = [
   {
@@ -9,7 +20,7 @@ const initialCars = [
     transmission: "Manual",
     capacity: 2,
     price: "99.00",
-    image: "../assets/image-1.png",
+    image: image1,
     favorite: true,
   },
   {
@@ -20,7 +31,7 @@ const initialCars = [
     transmission: "Manual",
     capacity: 2,
     price: "82.00",
-    image: "../assets/image-2.png",
+    image: image2,
     favorite: false,
   },
   {
@@ -31,7 +42,7 @@ const initialCars = [
     transmission: "Manual",
     capacity: 4,
     price: "96.00",
-    image: "../assets/image-3.png",
+    image: image3,
     favorite: false,
   },
   {
@@ -42,7 +53,7 @@ const initialCars = [
     transmission: "Manual",
     capacity: 6,
     price: "76.00",
-    image: "../assets/image-4.png",
+    image: image4,
     favorite: false,
   },
   {
@@ -53,7 +64,7 @@ const initialCars = [
     transmission: "Manual",
     capacity: 6,
     price: "80.00",
-    image: "../assets/image-5.png",
+    image: image5,
     favorite: true,
   },
   {
@@ -64,7 +75,7 @@ const initialCars = [
     transmission: "Manual",
     capacity: 6,
     price: "74.00",
-    image: "../assets/image-6.png",
+    image: image6,
     favorite: false,
   },
   {
@@ -75,7 +86,7 @@ const initialCars = [
     transmission: "Electric",
     capacity: 4,
     price: "76.00",
-    image: "../assets/image-7.png",
+    image: image7,
     favorite: false,
   },
   {
@@ -86,7 +97,7 @@ const initialCars = [
     transmission: "Manual",
     capacity: 6,
     price: "80.00",
-    image: "../assets/image-8.png",
+    image: image8,
     favorite: false,
   },
   {
@@ -97,7 +108,7 @@ const initialCars = [
     transmission: "Electric",
     capacity: 4,
     price: "74.00",
-    image: "../assets/image-9.png",
+    image: image9,
     favorite: true,
   },
   {
@@ -108,7 +119,7 @@ const initialCars = [
     transmission: "Manual",
     capacity: 3,
     price: "20.00",
-    image: "../assets/image-1.png",
+    image: image1,
     favorite: true,
   },
   {
@@ -119,7 +130,7 @@ const initialCars = [
     transmission: "Manual",
     capacity: 2,
     price: "44.00",
-    image: "../assets/image-2.png",
+    image: image2,
     favorite: true,
   },
   {
@@ -130,7 +141,7 @@ const initialCars = [
     transmission: "Manual",
     capacity: 6,
     price: "30.00",
-    image: "../assets/image-3.png",
+    image: image3,
     favorite: false,
   },
   {
@@ -141,7 +152,7 @@ const initialCars = [
     transmission: "Manual",
     capacity: 6,
     price: "100.00",
-    image: "../assets/image-4.png",
+    image: image4,
     favorite: true,
   },
   {
@@ -152,7 +163,7 @@ const initialCars = [
     transmission: "Manual",
     capacity: 6,
     price: "30.00",
-    image: "../assets/image-5.png",
+    image: image5,
     favorite: true,
   },
 ];
