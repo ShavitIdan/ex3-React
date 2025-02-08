@@ -8,8 +8,8 @@ import Sidebar from "../components/Sidebar/Sidebar";
 const ProfileLayout = () => {
   const { cars } = useContext(CarContext);
   const [filters, setFilters] = useState({
-    type: [],
-    capacity: null,
+    type: ["Sport", "SUV", "MPV", "Sedan", "Coupe", "Hatchback"],
+    capacity: [2, 4, 6],
     price: 100,
   });
 
@@ -18,9 +18,11 @@ const ProfileLayout = () => {
   const filteredCars = cars.filter(
     (car) =>
       (filters.type.length === 0 || filters.type.includes(car.type)) &&
-      (!filters.capacity || car.capacity === filters.capacity) &&
+      (filters.capacity.length === 0 ||
+        filters.capacity.includes(car.capacity)) &&
       parseFloat(car.price) <= filters.price &&
-      (searchTerm.length < 2 || car.name.toLowerCase().includes(searchTerm.toLowerCase()))
+      (searchTerm.length < 2 ||
+        car.name.toLowerCase().includes(searchTerm.toLowerCase()))
   );
 
   return (

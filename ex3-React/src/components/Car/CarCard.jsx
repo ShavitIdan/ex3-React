@@ -24,11 +24,13 @@ const CarCard = ({ car }) => {
         <p className="text-sm font-bold text-secondary">{car.type}</p>
       </div>
       <div className="pt-10 xl:min-h-[180px] flex justify-center items-end">
-        <img
-          src={car.image}
-          alt={car.name}
-          className="w-full   object-contain"
-        />
+        <Link to={`/details/${car.id}`}>
+          <img
+            src={car.image}
+            alt={car.name}
+            className="w-full   object-contain"
+          />
+        </Link>
       </div>
       <ul className="flex justify-between items-center py-5">
         <li className="flex gap-2 items-center text-sm font-medium text-secondary">
@@ -97,10 +99,7 @@ const CarCard = ({ car }) => {
           <span>${car.price}/</span>{" "}
           <span className="text-secondary text-sm font-bold">day</span>
         </p>
-        <Link
-          to={`/details/${car.id}`}
-          className="inline-block text-center hover:bg-primary/90 transition-all  bg-primary text-sm xl:text-base font-semibold  text-white px-2 sm:px-3 xl:px-5 py-2.5 rounded"
-        >
+        <Link className="inline-block text-center hover:bg-primary/90 transition-all  bg-primary text-sm xl:text-base font-semibold  text-white px-2 sm:px-3 xl:px-5 py-2.5 rounded">
           Rent Now
         </Link>
       </div>
