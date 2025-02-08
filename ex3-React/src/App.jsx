@@ -1,12 +1,11 @@
+import { BrowserRouter as Router } from "react-router-dom";
+import Routes from "./routes/Routes";
 
-import Footer from "./components/Footer/Footer"
-import Header from "./components/Header/Header"
 const App = () => {
   return (
-    <>
-      <Header />
-      <Footer />
-    </>
+    <Router>
+      <Routes />
+    </Router>
   )
 
 }
