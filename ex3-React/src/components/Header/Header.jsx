@@ -36,7 +36,7 @@ export default function Header({ searchTerm, setSearchTerm }) {
               placeholder="Search by car name"
               value={tempSearch}
               onChange={(e) => setTempSearch(e.target.value)}
-              onKeyDown={(e) => e.key === "Enter" && handleSearch()} // Press "Enter" to search
+              onKeyDown={(e) => e.key === "Enter" && handleSearch()} 
             />
             <button
               onClick={handleSearch}

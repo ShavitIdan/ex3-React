@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { useOutletContext } from "react-router-dom";
-import CarCard from "../components/Car/CarCard";
+import CarCard from "../components/Car/CarCard/CarCard";
 import { CarContext } from "../context/CarProvider";
 
 const Home = () => {

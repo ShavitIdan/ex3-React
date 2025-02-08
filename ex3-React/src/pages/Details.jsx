@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { useParams } from "react-router-dom";
-import CarDetailsSlider from "../components/Car/CarDetailsSlider";
+import CarDetailsSlider from "../components/Car/CarDetailsSlider/CarDetailsSlider";
 import Love from "../components/Svgs/Love";
 import Star from "../components/Svgs/Star";
 import { CarContext } from "../context/CarProvider";

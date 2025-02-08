@@ -1,27 +1,41 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect } from "react";
 import { CarContext } from "../../context/CarProvider";
+
 const Sidebar = ({ filters, setFilters, cars }) => {
   const { filter, setFilter } = useContext(CarContext);
 
   const typeCounts = {};
   const capacityCounts = { 2: 0, 4: 0, 6: 0 };
 
-  cars.forEach((car) => {
-    if (car.price <= filters.price) {
-      if (
-        filters.capacity.length === 0 ||
-        filters.capacity.includes(car.capacity)
-      ) {
-        typeCounts[car.type] = (typeCounts[car.type] || 0) + 1;
-      }
+  const filteredCars = cars.filter(
+    (car) =>
+      (filters.type.length === 0 || filters.type.includes(car.type)) &&
+      (filters.capacity.length === 0 || filters.capacity.includes(car.capacity))
+  );
 
-      if (filters.type.length === 0 || filters.type.includes(car.type)) {
-        if (capacityCounts[car.capacity] !== undefined) {
-          capacityCounts[car.capacity] += 1;
-        }
-      }
+  const minPrice = filteredCars.length
+    ? Math.min(...filteredCars.map((car) => parseFloat(car.price)))
+    : 0; 
+
+  const maxPrice = filteredCars.length
+    ? Math.max(...filteredCars.map((car) => parseFloat(car.price)))
+    : 100; 
+
+  useEffect(() => {
+    if (filters.price > maxPrice) {
+      setFilters((prev) => ({ ...prev, price: maxPrice }));
+    } else if (filters.price < minPrice) {
+      setFilters((prev) => ({ ...prev, price: minPrice }));
+    }
+  }, [minPrice, maxPrice, setFilters]);
+
+  filteredCars.forEach((car) => {
+    typeCounts[car.type] = (typeCounts[car.type] || 0) + 1;
+    if (capacityCounts[car.capacity] !== undefined) {
+      capacityCounts[car.capacity] += 1;
     }
   });
+
   return (
     <aside
       className={`${
@@ -48,53 +62,41 @@ const Sidebar = ({ filters, setFilters, cars }) => {
           <path d="M18 6 6 18M6 6l12 12"></path>
         </svg>
       </button>
+
       <div className="space-y-4">
-        <h2 className=" uppercase font-semibold text-xs text-secondary">
+        <h2 className="uppercase font-semibold text-xs text-secondary">
           Type
         </h2>
         <div className="space-y-3">
-          {["Sport", "SUV", "MPV", "Sedan", "Coupe", "Hatchback"].map(
-            (type) => (
-              <label
-                key={type}
-                className="flex items-center space-x-2 cursor-pointer"
-              >
-                <input
-                  type="checkbox"
-                  className="size-5 rounded-lg"
-                  checked={filters.type.includes(type)} // Check if selected
-                  onChange={() => {
-                    setFilters((prev) => {
-                      let newTypes;
+          {["Sport", "SUV", "MPV", "Sedan", "Coupe", "Hatchback"].map((type) => (
+            <label key={type} className="flex items-center space-x-2 cursor-pointer">
+              <input
+                type="checkbox"
+                className="size-5 rounded-lg"
+                checked={filters.type.includes(type)}
+                onChange={() => {
+                  setFilters((prev) => {
+                    let newTypes = prev.type.includes(type)
+                      ? prev.type.filter((t) => t !== type)
+                      : [...prev.type, type];
 
-                      if (prev.type.includes(type)) {
-                        // Remove type if already selected
-                        newTypes = prev.type.filter((t) => t !== type);
-                      } else {
-                        // Add type if not selected
-                        newTypes = [...prev.type, type];
-                      }
-
-                      return {
-                        ...prev,
-                        type: newTypes.length > 0 ? newTypes : prev.type, // Ensure at least one type is always selected
-                      };
-                    });
-                  }}
-                />
-                <p className="text-base font-semibold text-dark-100">
-                  {type}{" "}
-                  <span className="text-secondary">
-                    ({typeCounts[type] || 0})
-                  </span>
-                </p>
-              </label>
-            )
-          )}
+                    return {
+                      ...prev,
+                      type: newTypes.length > 0 ? newTypes : prev.type,
+                    };
+                  });
+                }}
+              />
+              <p className="text-base font-semibold text-dark-100">
+                {type} <span className="text-secondary">({typeCounts[type] || 0})</span>
+              </p>
+            </label>
+          ))}
         </div>
       </div>
+
       <div className="space-y-4">
-        <h2 className=" uppercase font-semibold text-xs text-secondary">
+        <h2 className="uppercase font-semibold text-xs text-secondary">
           Capacity
         </h2>
         <div className="space-y-3">
@@ -107,7 +109,7 @@ const Sidebar = ({ filters, setFilters, cars }) => {
                 checked={filters.capacity.includes(cap)}
                 onChange={() => {
                   setFilters((prev) => {
-                    const newCapacity = prev.capacity.includes(cap)
+                    let newCapacity = prev.capacity.includes(cap)
                       ? prev.capacity.filter((c) => c !== cap)
                       : [...prev.capacity, cap];
 
@@ -119,17 +121,15 @@ const Sidebar = ({ filters, setFilters, cars }) => {
                 }}
               />
               <p className="text-base font-semibold text-dark-100">
-                {cap} People{" "}
-                <span className="text-secondary">
-                  ({capacityCounts[cap] || 0})
-                </span>
+                {cap} People <span className="text-secondary">({capacityCounts[cap] || 0})</span>
               </p>
             </label>
           ))}
         </div>
       </div>
+
       <div className="space-y-4">
-        <h2 className=" uppercase font-semibold text-xs text-secondary">
+        <h2 className="uppercase font-semibold text-xs text-secondary">
           Price (Per Day)
         </h2>
 
@@ -138,26 +138,33 @@ const Sidebar = ({ filters, setFilters, cars }) => {
             <div className="absolute w-full h-3 bg-secondary rounded-full"></div>
             <div
               className="absolute h-3 bg-primary rounded-full"
-              style={{ width: `${filters.price}%` }}
+              style={{
+                width: `${((filters.price - minPrice) / (maxPrice - minPrice)) * 100}%`,
+              }}
             ></div>
             <div
-              style={{ left: `${filters.price}%` }}
+              style={{
+                left: `${((filters.price - minPrice) / (maxPrice - minPrice)) * 100}%`,
+              }}
               className="absolute right-0 size-6 border-4 -ml-4 border-white bg-primary rounded-full"
             ></div>
           </div>
 
           <input
             type="range"
-            min="0"
-            max="100"
+            min={minPrice}
+            max={maxPrice}
             value={filters.price}
             onChange={(e) =>
-              setFilters((prev) => ({ ...prev, price: e.target.value }))
+              setFilters((prev) => ({
+                ...prev,
+                price: parseFloat(e.target.value),
+              }))
             }
             className="absolute w-full opacity-0 cursor-pointer"
           />
         </div>
-        <p className="text-base  font-semibold text-dark-100">
+        <p className="text-base font-semibold text-dark-100">
           Max: ${filters.price}
         </p>
       </div>

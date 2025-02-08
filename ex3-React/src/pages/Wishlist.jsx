@@ -1,5 +1,5 @@
 import React, { useContext } from "react";
-import CarCard from "../components/Car/CarCard";
+import CarCard from "../components/Car/CarCard/CarCard";
 import { CarContext } from "../context/CarProvider";
 import { WishlistContext } from "../context/WishlistProvider";
 const Wishlist = () => {
