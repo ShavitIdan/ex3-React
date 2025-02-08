@@ -8,12 +8,10 @@ const Sidebar = ({ filters, setFilters, cars }) => {
 
   cars.forEach((car) => {
     if (car.price <= filters.price) {
-      // Count types
       if (!filters.capacity || car.capacity === filters.capacity) {
         typeCounts[car.type] = (typeCounts[car.type] || 0) + 1;
       }
 
-      // Count capacity
       if (filters.type.length === 0 || filters.type.includes(car.type)) {
         if (capacityCounts[car.capacity] !== undefined) {
           capacityCounts[car.capacity] += 1;
@@ -25,8 +23,8 @@ const Sidebar = ({ filters, setFilters, cars }) => {
     <aside
       className={`${
         filter ? "-translate-x-0" : "-translate-x-full"
-      } w-[340px]  lg:translate-x-0 transition-all duration-300 max-lg:fixed max-lg:left-0 top-0 bottom-0 max-lg:shadow-2xl bg-white z-50 xl:w-[360px] lg:sticky lg:top-[100px] min-h-[calc(100vh-140px)] px-8 py-8 space-y-6 xl:space-y-12`}
-    >
+      } w-[340px] lg:translate-x-0 transition-all duration-300 max-lg:fixed max-lg:left-0 top-0 bottom-0 max-lg:shadow-2xl bg-white z-100 lg:sticky lg:top-[100px] min-h-[calc(100vh-140px)] px-8 py-8 space-y-6`}
+      >
       <button
         type="button"
         onClick={() => setFilter(false)}
@@ -51,7 +49,7 @@ const Sidebar = ({ filters, setFilters, cars }) => {
         <h2 className=" uppercase font-semibold text-xs text-secondary">
           Type
         </h2>
-        <div className="space-y-3 xl:space-y-5">
+        <div className="space-y-3 ">
           {["Sport", "SUV", "MPV", "Sedan", "Coupe", "Hatchback"].map(
             (type) => (
               <label
@@ -71,12 +69,11 @@ const Sidebar = ({ filters, setFilters, cars }) => {
                     }))
                   }
                 />
-                <p className="text-base xl:text-xl font-semibold text-dark-100">
+                <p className="text-base font-semibold text-dark-100">
                   {type}{" "}
                   <span className="text-secondary">
                     ({typeCounts[type] || 0})
                   </span>{" "}
-                  {/* ✅ Show count */}
                 </p>
               </label>
             )
@@ -87,7 +84,7 @@ const Sidebar = ({ filters, setFilters, cars }) => {
         <h2 className=" uppercase font-semibold text-xs text-secondary">
           Capacity
         </h2>
-        <div className="space-y-3 xl:space-y-5">
+        <div className="space-y-3">
           {[2, 4, 6].map((cap) => (
             <label key={cap} className="flex items-center space-x-2">
               <input
@@ -99,9 +96,9 @@ const Sidebar = ({ filters, setFilters, cars }) => {
                   setFilters((prev) => ({ ...prev, capacity: cap }))
                 }
               />
-              <p className="text-base xl:text-xl font-semibold text-dark-100">
+              <p className="text-base font-semibold text-dark-100">
                 {cap} People{" "}
-                <span className="text-secondary">({typeCounts[cap] || 0})</span>
+                <span className="text-secondary">({capacityCounts[cap] || 0})</span>
               </p>
             </label>
           ))}
@@ -125,7 +122,6 @@ const Sidebar = ({ filters, setFilters, cars }) => {
             ></div>
           </div>
 
-          {/* Input Range */}
           <input
             type="range"
             min="0"
@@ -137,7 +133,7 @@ const Sidebar = ({ filters, setFilters, cars }) => {
             className="absolute w-full opacity-0 cursor-pointer"
           />
         </div>
-        <p className="text-base xl:text-xl font-semibold text-dark-100">
+        <p className="text-base  font-semibold text-dark-100">
           Max: ${filters.price}
         </p>
       </div>

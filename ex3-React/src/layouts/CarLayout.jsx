@@ -13,16 +13,19 @@ const ProfileLayout = () => {
     price: 100,
   });
 
+  const [searchTerm, setSearchTerm] = useState("");
+
   const filteredCars = cars.filter(
     (car) =>
       (filters.type.length === 0 || filters.type.includes(car.type)) &&
       (!filters.capacity || car.capacity === filters.capacity) &&
-      parseFloat(car.price) <= filters.price
+      parseFloat(car.price) <= filters.price &&
+      (searchTerm.length < 2 || car.name.toLowerCase().includes(searchTerm.toLowerCase()))
   );
 
   return (
     <>
-      <Header />
+      <Header searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
       <div className="flex items-start bg-[#F6F7F9]">
         <Sidebar filters={filters} cars={cars} setFilters={setFilters} />
         <main className="px-4 lg:px-6 py-6 bg-[#F6F7F9] w-full">
