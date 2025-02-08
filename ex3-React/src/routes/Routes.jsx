@@ -5,11 +5,11 @@ import WishlistProvider from "../context/WishlistProvider";
 import CarLayout from "../layouts/CarLayout";
 import Home from "../pages/Home";
 import Wishlist from "../pages/Wishlist";
+import Details from "../pages/Details";
 
 const AppRoutes = () => {
   return (
     <Routes>
-      {/* Car Layout */}
       <Route
         element={
           <CarProvider>
@@ -20,8 +20,8 @@ const AppRoutes = () => {
         }
       >
         <Route path="/" element={<Home />} />
+        <Route path="/details/:id" element={<Details />} />
         <Route path="/wishlist" element={<Wishlist />} />
-
       </Route>
     </Routes>
   );
