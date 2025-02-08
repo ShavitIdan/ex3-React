@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import { Link } from "react-router-dom";
-import { WishlistContext } from "../context/WishlistProvider";
+import { WishlistContext } from "../../context/WishlistProvider";
 import Love from "../Svgs/Love";
 const CarCard = ({ car }) => {
   const { wishlist, toggleWishlist } = useContext(WishlistContext);
