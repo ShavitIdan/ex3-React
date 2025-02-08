@@ -5,23 +5,8 @@ import Love from "../components/Svgs/Love";
 import Star from "../components/Svgs/Star";
 import { CarContext } from "../context/CarProvider";
 import { WishlistContext } from "../context/WishlistProvider";
-import sliderImage1 from "../assets/slider-img.png";
-import sliderImage2 from "../assets/slider-img-two.png";
-import sliderImage3 from "../assets/slider-img-three.png";
 
 const Details = () => {
-  const images = [
-    {
-      image: sliderImage1,
-    },
-    {
-      image: sliderImage2,
-    },
-    {
-      image: sliderImage3,
-    },
-  ];
-
   const { cars } = useContext(CarContext);
   const { setFilter } = useContext(CarContext);
   const { wishlist, toggleWishlist } = useContext(WishlistContext);
@@ -60,7 +45,7 @@ const Details = () => {
       </div>
       <div className="grid grid-cols-1 md:grid-cols-2 gap-5 xl:gap-10">
         <div>
-          <CarDetailsSlider items={images} />
+          <CarDetailsSlider items={[car.slider1, car.slider2, car.slider3]} />
         </div>
         <div className="bg-white p-4 xl:p-7 rounded-xl space-y-5 xl:space-y-10 relative">
           <button

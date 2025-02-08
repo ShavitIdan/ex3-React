@@ -25,7 +25,7 @@ export default function CarDetailsSlider({ items }) {
           <SwiperSlide key={index}>
             <div className="relative pb-[70%] overflow-hidden rounded-xl">
               <img
-                src={item.image}
+                src={item}
                 alt={`Car Image ${index + 1}`}
                 className="absolute inset-0 w-full h-full object-cover"
                 loading="lazy"
@@ -48,7 +48,7 @@ export default function CarDetailsSlider({ items }) {
           <SwiperSlide key={index}>
             <div className="relative pb-[70%] overflow-hidden rounded sm:rounded-xl">
               <img
-                src={item.image}
+                src={item}
                 alt={`Car Image ${index + 1}`}
                 className="absolute inset-0 w-full h-full object-cover"
                 loading="lazy"
